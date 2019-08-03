@@ -1,0 +1,22 @@
+{
+  "name": "wakatimeSaver",
+  "version": "0.0.1",
+  "description": "saves wakatime to mongooseDB",
+  "main": "index.js",
+  "author": "Mik",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js",
+    "start-pm2": "pm2 start process.json"
+  },
+  "dependencies": {
+    "assert": "^2.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "dotenv": "^8.0.0",
+    "mongodb": "^3.3.0-beta2",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^1.18.6"
+  }
+}

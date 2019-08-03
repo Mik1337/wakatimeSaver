@@ -14,4 +14,4 @@ This code retrives data from the json and saves it to a db. In my case mongoDB (
 'cause it be moar convinient and cost less 💰;
 
 ### License 
-😎 MIT 😎
+😎 [MIT](https://github.com/Mik1337/wakatimeSaver/blob/master/LICENSE) 😎

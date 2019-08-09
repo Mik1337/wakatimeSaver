@@ -15,9 +15,19 @@ client.connect(async(err) => {
   console.log("Connected successfully to server");
   const db = client.db(name);
   const collection = db.collection('data');
-  const data = await getData();
-  collection.insertOne(data, (err, result) => {
-    console.log("Inserted the documents into the collection");
+  const date = new Date();
+  date.setDate(date.getDate() - 1);
+  collection.find({"date":date.toDateString()}).toArray(async (err, items) => {
+    const data = await getData();
+    if (!items.length) {
+      const data = await getData();
+      // console.log(typeof data);
+      collection.insertMany(data, (err, result) => {
+        console.log("Inserted the documents into the collection");
+      });
+    } else {
+        console.log("nothing to do here");
+    }
   });
 });
 
@@ -27,14 +37,22 @@ const getData = () => {
   .then(json => {
     const data = json.data;
     return data.map(i => {
+      const date = new Date();
+      const ObjArray = []
       if (i.range.text === 'Yesterday') {
-        const date = new Date();
+        const data = json.data;
         date.setDate(date.getDate() - 1);
-        return {time: i.grand_total,date: date.toDateString()};
+        return {time: i.grand_total, date: date.toDateString()};
       }
+      // load all data except todays
+      // else if (i.range.text === 'Today') {
+      //   console.log('nothing to do here yet');
+      // }
+      // else {
+      //   return {time: i.grand_total, date: i.range.text.replace(/rd|th|st/g, '')};
+      // }
     }).filter(i => i);
   })
-  .then(data => data[0])
   .catch(error => console.log(`error ${error}`));
   return data;
 }
